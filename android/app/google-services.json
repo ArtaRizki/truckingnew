@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "997120357728",
+    "project_id": "aktifasi-gps",
+    "storage_bucket": "aktifasi-gps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997120357728:android:c98576e4cbaa2592159a05",
+        "android_client_info": {
+          "package_name": "com.example.anugerah_truck"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997120357728-1tji1tgf5osqmm6ubtq0mjdbab470bq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB19wXEJQiZnezqzSmT_6l8YzHIXljMis4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997120357728-1tji1tgf5osqmm6ubtq0mjdbab470bq6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997120357728:android:5e134255c19d4404159a05",
+        "android_client_info": {
+          "package_name": "com.example.anugerah_trucking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997120357728-1tji1tgf5osqmm6ubtq0mjdbab470bq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB19wXEJQiZnezqzSmT_6l8YzHIXljMis4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997120357728-1tji1tgf5osqmm6ubtq0mjdbab470bq6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997120357728:android:2338798d44514b30159a05",
+        "android_client_info": {
+          "package_name": "com.example.anugerah_trucking.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997120357728-1tji1tgf5osqmm6ubtq0mjdbab470bq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB19wXEJQiZnezqzSmT_6l8YzHIXljMis4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997120357728-1tji1tgf5osqmm6ubtq0mjdbab470bq6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997120357728:android:2ccdc3c0c8553d40159a05",
+        "android_client_info": {
+          "package_name": "com.example.anugerah_trucking.rc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997120357728-1tji1tgf5osqmm6ubtq0mjdbab470bq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB19wXEJQiZnezqzSmT_6l8YzHIXljMis4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997120357728-1tji1tgf5osqmm6ubtq0mjdbab470bq6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
