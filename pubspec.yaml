@@ -45,7 +45,7 @@ dependencies:
   camerawesome: ^0.2.1+2
   app_settings: ^4.0.3
   background_location:
-     path: ../background-location-ephilia
+     path: background-location-ephilia
 
 
   # The following adds the Cupertino Icons font to your application.
