@@ -32,7 +32,7 @@ packages:
   background_location:
     dependency: "direct main"
     description:
-      path: "../background-location-ephilia"
+      path: background-location-ephilia
       relative: true
     source: path
     version: "0.0.1"
