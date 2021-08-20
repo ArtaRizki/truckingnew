@@ -13,5 +13,14 @@
                 "--dart-define=ENV=DEV"
 			]
         },
+        {
+            "name": "RC",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+			"args": [
+                "--dart-define=ENV=RC"
+			]
+        },
     ]
 }

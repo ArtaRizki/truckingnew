@@ -82,14 +82,15 @@ class _FormScreenState extends State<FormScreen> {
   bool canBerangkat = false;
 
   _FormScreenState(this.suratJalan);
-  
+
   L.Location location = new L.Location();
 
   bool _serviceEnabled;
   L.LocationData _locationData;
 
   Future getImage(picker, file) async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera, imageQuality: 50, maxWidth: 300);
+    final pickedFile = await picker.getImage(
+        source: ImageSource.camera, imageQuality: 50, maxWidth: 300);
 
     setState(() {
       file = File(pickedFile.path);
@@ -123,6 +124,7 @@ class _FormScreenState extends State<FormScreen> {
         fileUpload = _selesaiBongkarFile;
         textUpload = _selesaiBongkarText.text;
         textStatus = "Selesai Bongkar";
+        print("masuk sini");
         break;
       case StatusTruck.Kembali:
         fileUpload = _kembaliFile;
@@ -133,7 +135,7 @@ class _FormScreenState extends State<FormScreen> {
         fileUpload = _masalahFile;
         textUpload = _masalahText.text;
         textStatus = "Masalah di jalan";
-        setState((){
+        setState(() {
           inProgressMasalah = true;
         });
         break;
@@ -157,29 +159,29 @@ class _FormScreenState extends State<FormScreen> {
     });
 
     _serviceEnabled = await location.serviceEnabled();
-     print("masuk sini 1");
+    print("masuk sini 1");
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {
-        _serviceEnabled = await location.requestService();
-        if (!_serviceEnabled) {
-          final snackBar = SnackBar(
-          backgroundColor: Colors.red,
-          content: Text(
-            "Nyalakan GPS untuk menyimpan data",
-            style: TextStyle(color: Colors.white),
-          ));
-          _scaffoldKey.currentState.showSnackBar(snackBar);
-          setState(() {
-            inProgress = false;
-            inProgressMasalah = false;
-          });
+        final snackBar = SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              "Nyalakan GPS untuk menyimpan data",
+              style: TextStyle(color: Colors.white),
+            ));
+        _scaffoldKey.currentState.showSnackBar(snackBar);
+        setState(() {
+          inProgress = false;
+          inProgressMasalah = false;
+        });
 
-          return;
-        }
+        return;
       }
+    }
 
     if (status == StatusTruck.MasalahDijalan) {
-       print("masuk sini 2");
-      setState((){
+      print("masuk sini 2");
+      setState(() {
         inProgressMasalah = true;
       });
     } else {
@@ -193,7 +195,7 @@ class _FormScreenState extends State<FormScreen> {
     Map<P.Permission, P.PermissionStatus> statuses = await [
       P.Permission.location,
     ].request();
-     print("masuk sini 3");
+    print("masuk sini 3");
     if (isLocationServiceEnabled == false) {
       final snackBar = SnackBar(
           backgroundColor: Colors.red,
@@ -230,7 +232,7 @@ class _FormScreenState extends State<FormScreen> {
           ));
       _scaffoldKey.currentState.showSnackBar(snackBar);
     } else if (textUpload == "" && status == StatusTruck.MasalahDijalan) {
-        final snackBar = SnackBar(
+      final snackBar = SnackBar(
           backgroundColor: Colors.red,
           content: Text(
             "Keterangan belum diisi",
@@ -239,25 +241,24 @@ class _FormScreenState extends State<FormScreen> {
       _scaffoldKey.currentState.showSnackBar(snackBar);
       gagalKendala = true;
     } else {
-       print("masuk sini 4");
-        var geo = Geolocator();
-        pesan = "Gagal mendapatkan lokasi";
-        geo.forceAndroidLocationManager = true;
-        var data;
-     try {
-        Position position = await geo
-          .getCurrentPosition();
-      data = await SJController.updateStatus(
-          suratJalan.id, textUpload, textStatus, fileUpload.path, position);
-     } catch(e) {
-       setState(() {
-      inProgress = false;
-      inProgressMasalah = false;
-      if (gagalKendala == false) {
-        _masalahText.text = "";
-        _masalahFile = null;
-      }
-    });
+      print("masuk sini 4");
+      var geo = Geolocator();
+      pesan = "Gagal mendapatkan lokasi";
+      geo.forceAndroidLocationManager = true;
+      var data;
+      try {
+        Position position = await geo.getCurrentPosition();
+        data = await SJController.updateStatus(
+            suratJalan.id, textUpload, textStatus, fileUpload.path, position);
+      } catch (e) {
+        setState(() {
+          inProgress = false;
+          inProgressMasalah = false;
+          if (gagalKendala == false) {
+            _masalahText.text = "";
+            _masalahFile = null;
+          }
+        });
         final snackBar = SnackBar(
             backgroundColor: Colors.red,
             content: Text(
@@ -265,9 +266,9 @@ class _FormScreenState extends State<FormScreen> {
               style: TextStyle(color: Colors.white),
             ));
         _scaffoldKey.currentState.showSnackBar(snackBar);
-       return;
-     }
-           print("masuk sini 5");
+        return;
+      }
+      print("masuk sini 5");
       if (data['status'] == true) {
         final snackBar = SnackBar(
             backgroundColor: Colors.blue,
@@ -384,7 +385,7 @@ class _FormScreenState extends State<FormScreen> {
             ));
         _scaffoldKey.currentState.showSnackBar(snackBar);
       } else {
-        setState((){
+        setState(() {
           suratJalan.berangkat = 1;
         });
       }
@@ -412,14 +413,15 @@ class _FormScreenState extends State<FormScreen> {
     _selesaiBongkarText.text =
         suratJalan.selesaiBongkar == "-" ? "" : suratJalan.selesaiBongkar;
 
-     _kembaliText.text =
+    _kembaliText.text =
         suratJalan.kembaliKeDepo == "-" ? "" : suratJalan.kembaliKeDepo;
 
     var date = new DateTime.now().toString();
     var dateParse = DateTime.parse(date);
     var waktuFilter = DateFormat("yyyy-MM-dd").format(dateParse);
 
-    if (suratJalan.tanggalAmbil.isBefore(dateParse) == true || suratJalan.tanggalAmbil.isAtSameMomentAs(dateParse)) {
+    if (suratJalan.tanggalAmbil.isBefore(dateParse) == true ||
+        suratJalan.tanggalAmbil.isAtSameMomentAs(dateParse)) {
       canBerangkat = true;
     }
 
@@ -430,7 +432,7 @@ class _FormScreenState extends State<FormScreen> {
     // onStart();
   }
 
-  var  cameras;
+  var cameras;
 
   // void onStart() async {
   //   cameras = await availableCameras();
@@ -551,16 +553,19 @@ class _FormScreenState extends State<FormScreen> {
                           padding: EdgeInsets.symmetric(vertical: 15),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30)),
-                          color: inProgress == false ? Colors.green : Colors.grey,
-                          onPressed: (inProgress == true || suratJalan.tombolberangkat == 0) ? null : () {
-                            berangkat();
-                            // context.read<DashboardProvider>().berangkat(
-                            //     suratJalan.id, _scaffoldKey, context);
-                          },
-                          child:
-                             inProgress == false
-                                            ? Text("Berangkat")
-                                            : CircularProgressIndicator()),
+                          color:
+                              inProgress == false ? Colors.green : Colors.grey,
+                          onPressed: (inProgress == true ||
+                                  suratJalan.tombolberangkat == 0)
+                              ? null
+                              : () {
+                                  berangkat();
+                                  // context.read<DashboardProvider>().berangkat(
+                                  //     suratJalan.id, _scaffoldKey, context);
+                                },
+                          child: inProgress == false
+                              ? Text("Berangkat")
+                              : CircularProgressIndicator()),
                     ),
               SizedBox(height: 10),
 
@@ -623,11 +628,14 @@ class _FormScreenState extends State<FormScreen> {
                                             : Image.file(_antriMuatFile),
                                       ),
                                       onTap: () async {
-                                        var tempFile = await Navigator.of(context)
-                                        .push(MaterialPageRoute(builder: (context) => CameraExampleHome()));
+                                        var tempFile =
+                                            await Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CameraExampleHome()));
                                         Logger().w("back buttopn");
                                         setState(() {
-                                        if (tempFile != null)
+                                          if (tempFile != null)
                                             _antriMuatFile =
                                                 File(tempFile.path);
                                         });
@@ -757,8 +765,11 @@ class _FormScreenState extends State<FormScreen> {
                                         // var pickedFile =
                                         //     await _selesaiMuatPicker.getImage(
                                         //         source: ImageSource.camera, imageQuality: 50, maxWidth: 300);
-                                        var pickedFile = await Navigator.of(context)
-                                        .push(MaterialPageRoute(builder: (context) => CameraExampleHome()));
+                                        var pickedFile =
+                                            await Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CameraExampleHome()));
 
                                         setState(() {
                                           if (pickedFile != null)
@@ -883,8 +894,11 @@ class _FormScreenState extends State<FormScreen> {
                                         // var pickedFile =
                                         //     await _antriBongkarPicker.getImage(
                                         //         source: ImageSource.camera, imageQuality: 50, maxWidth: 300);
-                                        var pickedFile = await Navigator.of(context)
-                                        .push(MaterialPageRoute(builder: (context) => CameraExampleHome()));
+                                        var pickedFile =
+                                            await Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CameraExampleHome()));
 
                                         setState(() {
                                           if (pickedFile != null)
@@ -1011,8 +1025,11 @@ class _FormScreenState extends State<FormScreen> {
                                         //     await _selesaiBongkarPicker
                                         //         .getImage(
                                         //             source: ImageSource.camera, imageQuality: 50, maxWidth: 300);
-                                        var pickedFile = await Navigator.of(context)
-                                        .push(MaterialPageRoute(builder: (context) => CameraExampleHome()));
+                                        var pickedFile =
+                                            await Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CameraExampleHome()));
 
                                         setState(() {
                                           if (pickedFile != null)
@@ -1138,8 +1155,11 @@ class _FormScreenState extends State<FormScreen> {
                                         // var pickedFile =
                                         //     await _kembaliPicker.getImage(
                                         //         source: ImageSource.camera, imageQuality: 50, maxWidth: 300);
-                                        var pickedFile = await Navigator.of(context)
-                                        .push(MaterialPageRoute(builder: (context) => CameraExampleHome()));
+                                        var pickedFile =
+                                            await Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CameraExampleHome()));
 
                                         setState(() {
                                           _kembaliFile = File(pickedFile.path);
@@ -1260,7 +1280,9 @@ class _FormScreenState extends State<FormScreen> {
                                   // var pickedFile = await _masalahPicker
                                   //     .getImage(source: ImageSource.camera, imageQuality: 50, maxWidth: 500);
                                   var pickedFile = await Navigator.of(context)
-                                        .push(MaterialPageRoute(builder: (context) => CameraExampleHome()));
+                                      .push(MaterialPageRoute(
+                                          builder: (context) =>
+                                              CameraExampleHome()));
 
                                   setState(() {
                                     if (pickedFile != null)

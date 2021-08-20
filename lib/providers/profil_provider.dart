@@ -15,6 +15,7 @@ class ProfilProvider with ChangeNotifier, DiagnosticableTreeMixin {
     _inProgress = true;
     notifyListeners();
     DriverModel dataDriver = await UserController.DriverData();
+    print(dataDriver.toJson().toString());
     _inProgress = false;
     notifyListeners();
     nameCon.text = dataDriver.name;
